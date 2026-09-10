@@ -30,22 +30,28 @@ export default function Landing() {
       
       {/* Navbar with Custom Logo */}
       <nav className="glass fixed w-full z-50 px-8 py-3 flex justify-between items-center border-b border-white/5">
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
-          <img src={myLogo} alt="Fitverse Logo" className="w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(204,255,0,0.5)]" />
-          <span className="text-xl font-extrabold tracking-wider text-white">FITVERSE <span className="text-primary">AI</span></span>
-        </div>
-        <div className="hidden md:flex gap-8 text-sm font-medium text-gray-300">
-          <a href="#features" className="hover:text-primary transition-colors">Features</a>
-        </div>
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => navigate('/auth')} 
-          className="bg-primary text-black px-6 py-2 rounded-full font-semibold transition-colors shadow-[0_0_15px_rgba(204,255,0,0.3)]"
-        >
-          Login / Start
-        </motion.button>
-      </nav>
+  {/* Direct Inline SVG Logo - Guaranteed never to break */}
+  <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
+    <div className="w-10 h-10 bg-primary/20 border border-primary/40 rounded-xl flex items-center justify-center shadow-[0_0_10px_rgba(204,255,0,0.3)]">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ccff00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <path d="M6.5 6.5h11M6.5 17.5h11M6 12h12M3 9v6M21 9v6"/>
+      </svg>
+    </div>
+    <span className="text-xl font-extrabold tracking-wider text-white">FITVERSE <span className="text-primary">AI</span></span>
+  </div>
+
+  <div className="hidden md:flex gap-8 text-sm font-medium text-gray-300">
+    <a href="#features" className="hover:text-primary transition-colors">Features</a>
+  </div>
+  <motion.button 
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    onClick={() => navigate('/auth')} 
+    className="bg-primary text-black px-6 py-2 rounded-full font-semibold transition-colors shadow-[0_0_15px_rgba(204,255,0,0.3)]"
+  >
+    Login / Start
+  </motion.button>
+</nav>
 
       <section className="pt-40 pb-20 px-4 max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
