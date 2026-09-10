@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Bot, Camera, Trophy, Activity } from 'lucide-react';
+import myLogo from '../assets/logo.png';
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -27,8 +28,12 @@ export default function Landing() {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark to-dark pointer-events-none" />
       
-      <nav className="glass fixed w-full z-50 px-8 py-4 flex justify-between items-center border-b border-white/5">
-        <h1 className="text-2xl font-bold tracking-tighter">🏋️ FITVERSE <span className="text-primary">AI</span></h1>
+      {/* Navbar with Custom Logo */}
+      <nav className="glass fixed w-full z-50 px-8 py-3 flex justify-between items-center border-b border-white/5">
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
+          <img src={myLogo} alt="Fitverse Logo" className="w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(204,255,0,0.5)]" />
+          <span className="text-xl font-extrabold tracking-wider text-white">FITVERSE <span className="text-primary">AI</span></span>
+        </div>
         <div className="hidden md:flex gap-8 text-sm font-medium text-gray-300">
           <a href="#features" className="hover:text-primary transition-colors">Features</a>
         </div>
@@ -36,7 +41,7 @@ export default function Landing() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => navigate('/auth')} 
-          className="bg-primary text-black px-6 py-2 rounded-full font-semibold transition-colors"
+          className="bg-primary text-black px-6 py-2 rounded-full font-semibold transition-colors shadow-[0_0_15px_rgba(204,255,0,0.3)]"
         >
           Login / Start
         </motion.button>
