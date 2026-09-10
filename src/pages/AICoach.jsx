@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Bot, Send, User } from 'lucide-react';
 
-export default function AiCoach() {
+export default function AICoach() {
   const [messages, setMessages] = useState([
     { sender: 'ai', text: "Hello, athlete! I'm your FITVERSE AI Coach. What's your fitness goal for today?" }
   ]);
@@ -30,8 +30,6 @@ export default function AiCoach() {
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-6 max-w-4xl mx-auto pb-12">
-      
-      {/* Header */}
       <div className="glass p-6 rounded-2xl border border-white/10 flex items-center justify-between shadow-xl relative overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop")' }} />
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none" />
@@ -47,7 +45,6 @@ export default function AiCoach() {
         </div>
       </div>
 
-      {/* Chat Messages Area */}
       <div className="glass p-6 rounded-2xl border border-white/10 space-y-4 shadow-2xl min-h-[400px] max-h-[500px] overflow-y-auto flex flex-col">
         {messages.map((m, i) => (
           <div key={i} className={`flex items-start gap-3 ${m.sender === 'user' ? 'flex-row-reverse' : ''}`}>
@@ -65,7 +62,6 @@ export default function AiCoach() {
         ))}
       </div>
 
-      {/* Input Form */}
       <form onSubmit={handleSend} className="glass p-2 rounded-2xl border border-white/10 flex items-center gap-2 shadow-xl">
         <input 
           type="text" 

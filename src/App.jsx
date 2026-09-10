@@ -5,7 +5,7 @@ import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Workouts from './pages/Workouts';
 import PoseTrainer from './pages/PoseTrainer';
-import AiCoach from './pages/AiCoach';
+import AiCoach from './pages/AICoach';
 import Challenges from './pages/Challenges';
 
 export default function App() {
