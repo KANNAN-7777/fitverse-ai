@@ -1,104 +1,79 @@
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { Bot, Camera, Trophy, Activity } from 'lucide-react';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Home, Dumbbell, Bot, Camera, Trophy, LogOut } from 'lucide-react';
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
-export default function Landing() {
+export default function Layout() {
+  const { logout } = useContext(AppContext);
   const navigate = useNavigate();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
-  };
+  const navItems = [
+    { name: 'Dashboard', path: '/app', icon: <Home size={20} /> },
+    { name: 'Workouts', path: '/app/workouts', icon: <Dumbbell size={20} /> },
+    { name: 'Pose Trainer', path: '/app/pose-trainer', icon: <Camera size={20} /> },
+    { name: 'AI Coach', path: '/app/ai-coach', icon: <Bot size={20} /> },
+    { name: 'Challenges', path: '/app/challenges', icon: <Trophy size={20} /> },
+  ];
 
   return (
-    <div className="min-h-screen bg-dark text-white relative overflow-hidden">
-      {/* Cinematic Professional Gym Background Image with Dark Gradient Overlay */}
+    <div className="flex h-screen bg-dark text-white overflow-hidden relative">
+      {/* Global Background Image & Ambient Glow for All Pages */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25 pointer-events-none"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15 pointer-events-none fixed"
         style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop")' }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark/95 to-dark pointer-events-none" />
-      
-      {/* Navbar with Custom Neon Logo Mark */}
-      <nav className="glass fixed w-full z-50 px-8 py-3 flex justify-between items-center border-b border-white/5 backdrop-blur-md">
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
-          <div className="w-10 h-10 bg-primary/20 border border-primary/40 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(204,255,0,0.3)]">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ccff00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+      <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark/95 to-black pointer-events-none fixed" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none fixed" />
+
+      {/* Sidebar */}
+      <aside className="w-64 bg-card/80 backdrop-blur-xl border-r border-white/5 hidden md:flex flex-col relative z-10">
+        <div className="p-6 flex items-center gap-3">
+          <div className="w-9 h-9 bg-primary/20 border border-primary/40 rounded-xl flex items-center justify-center shadow-[0_0_10px_rgba(204,255,0,0.3)]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ccff00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
               <path d="M6.5 6.5h11M6.5 17.5h11M6 12h12M3 9v6M21 9v6"/>
             </svg>
           </div>
-          <span className="text-xl font-extrabold tracking-wider text-white">FITVERSE <span className="text-primary">AI</span></span>
-        </div>
-        
-        <div className="hidden md:flex gap-8 text-sm font-medium text-gray-300">
-          <a href="#features" className="hover:text-primary transition-colors">Features</a>
-        </div>
-
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => navigate('/auth')} 
-          className="bg-primary text-black px-6 py-2 rounded-full font-semibold transition-colors shadow-[0_0_15px_rgba(204,255,0,0.3)]"
-        >
-          Login / Start
-        </motion.button>
-      </nav>
-
-      <section className="pt-40 pb-20 px-4 max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <span className="bg-primary/10 text-primary border border-primary/30 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block mb-6 shadow-[0_0_15px_rgba(204,255,0,0.2)]">
-            ⚡ Smart India Hackathon 2026 Prototype
-          </span>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight drop-shadow-2xl">
-            FITNESS IS NOT A TASK.<br/>
-            <span className="text-primary">IT'S YOUR NEXT LEVEL.</span>
+          <h1 className="text-xl font-bold tracking-tight text-white">
+            FITVERSE <span className="text-primary">AI</span>
           </h1>
-          <p className="text-gray-300 max-w-2xl mx-auto text-lg mb-10 font-medium">
-            FITVERSE AI uses intelligent recommendations, gamification, and real-time AI pose detection to help you build a healthier, active lifestyle.
-          </p>
-          <div className="flex gap-4 justify-center">
-            <motion.button 
-              whileHover={{ scale: 1.05, boxShadow: "0px 0px 30px rgba(204,255,0,0.4)" }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => navigate('/auth')} 
-              className="bg-primary text-black px-8 py-4 rounded-full font-bold text-lg transition-all"
-            >
-              🚀 Start Your Journey
-            </motion.button>
-          </div>
-        </motion.div>
+        </div>
 
-        {/* Staggered Feature Grid */}
-        <motion.div 
-          id="features" 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-32 w-full"
-        >
-          {[
-            { icon: <Bot size={32}/>, title: "AI Coach", desc: "Personalized fitness recommendations." },
-            { icon: <Camera size={32}/>, title: "Smart Pose", desc: "Webcam-based real-time form correction." },
-            { icon: <Trophy size={32}/>, title: "Gamification", desc: "Earn XP, streaks, and badges." },
-            { icon: <Activity size={32}/>, title: "Analytics", desc: "Detailed tracking of your progress." }
-          ].map((f, i) => (
-            <motion.div key={i} variants={itemVariants} className="glass p-6 rounded-2xl hover:-translate-y-2 transition-transform cursor-pointer border border-white/10 bg-black/40 backdrop-blur-md">
-              <div className="text-primary mb-4">{f.icon}</div>
-              <h3 className="text-xl font-bold mb-2">{f.title}</h3>
-              <p className="text-gray-400 text-sm">{f.desc}</p>
-            </motion.div>
+        <nav className="flex-1 px-4 space-y-1 mt-2">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              end={item.path === '/app'}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${
+                  isActive 
+                    ? 'bg-primary text-black font-semibold shadow-[0_0_20px_rgba(204,255,0,0.3)]' 
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                }`
+              }
+            >
+              {item.icon}
+              {item.name}
+            </NavLink>
           ))}
-        </motion.div>
-      </section>
+        </nav>
+
+        <div className="p-4 border-t border-white/5">
+          <button
+            onClick={() => { logout(); navigate('/auth'); }}
+            className="flex items-center gap-3 px-4 py-3 w-full rounded-xl font-medium text-red-400 hover:bg-red-500/10 transition-colors"
+          >
+            <LogOut size={20} /> Logout
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content Area */}
+      <main className="flex-1 overflow-y-auto p-8 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <Outlet />
+        </div>
+      </main>
     </div>
   );
 }
