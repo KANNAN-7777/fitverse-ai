@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Bot, Send, User, Sparkles } from 'lucide-react';
+import { Bot, Send, User } from 'lucide-react';
 
 export default function AiCoach() {
   const [messages, setMessages] = useState([
@@ -16,7 +16,6 @@ export default function AiCoach() {
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
 
-    // Simulate AI response
     setTimeout(() => {
       let aiReply = "That's a solid goal! Keep pushing your limits and make sure to stay hydrated.";
       const lower = userMessage.text.toLowerCase();
@@ -30,10 +29,10 @@ export default function AiCoach() {
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-6 max-w-4xl mx-auto h-[calc(100vh-8rem)] flex flex-col">
+    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-6 max-w-4xl mx-auto pb-12">
       
       {/* Header */}
-      <div className="glass p-6 rounded-2xl border border-white/10 flex items-center justify-between shadow-xl relative overflow-hidden shrink-0">
+      <div className="glass p-6 rounded-2xl border border-white/10 flex items-center justify-between shadow-xl relative overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop")' }} />
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none" />
         
@@ -49,7 +48,7 @@ export default function AiCoach() {
       </div>
 
       {/* Chat Messages Area */}
-      <div className="flex-1 glass p-6 rounded-2xl border border-white/10 overflow-y-auto space-y-4 shadow-2xl flex flex-col">
+      <div className="glass p-6 rounded-2xl border border-white/10 space-y-4 shadow-2xl min-h-[400px] max-h-[500px] overflow-y-auto flex flex-col">
         {messages.map((m, i) => (
           <div key={i} className={`flex items-start gap-3 ${m.sender === 'user' ? 'flex-row-reverse' : ''}`}>
             <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${m.sender === 'user' ? 'bg-white text-black font-bold' : 'bg-primary/20 border border-primary/40 text-primary'}`}>
@@ -67,7 +66,7 @@ export default function AiCoach() {
       </div>
 
       {/* Input Form */}
-      <form onSubmit={handleSend} className="glass p-2 rounded-2xl border border-white/10 flex items-center gap-2 shrink-0 shadow-xl">
+      <form onSubmit={handleSend} className="glass p-2 rounded-2xl border border-white/10 flex items-center gap-2 shadow-xl">
         <input 
           type="text" 
           value={input} 
