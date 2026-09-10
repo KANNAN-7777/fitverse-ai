@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Bot, Camera, Trophy, Activity } from 'lucide-react';
-import myLogo from '../assets/logo.png';
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -21,40 +20,43 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-dark text-white relative overflow-hidden">
-      {/* Background Image with Dark Overlay */}
+      {/* Cinematic Professional Gym Background Image with Dark Gradient Overlay */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 pointer-events-none"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25 pointer-events-none"
         style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop")' }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark to-dark pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark/95 to-dark pointer-events-none" />
       
-      {/* Navbar with Custom Logo */}
-      <nav className="glass fixed w-full z-50 px-8 py-3 flex justify-between items-center border-b border-white/5">
-  {/* Direct Inline SVG Logo - Guaranteed never to break */}
-  <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
-    <div className="w-10 h-10 bg-primary/20 border border-primary/40 rounded-xl flex items-center justify-center shadow-[0_0_10px_rgba(204,255,0,0.3)]">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ccff00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-        <path d="M6.5 6.5h11M6.5 17.5h11M6 12h12M3 9v6M21 9v6"/>
-      </svg>
-    </div>
-    <span className="text-xl font-extrabold tracking-wider text-white">FITVERSE <span className="text-primary">AI</span></span>
-  </div>
+      {/* Navbar with Custom Neon Logo Mark */}
+      <nav className="glass fixed w-full z-50 px-8 py-3 flex justify-between items-center border-b border-white/5 backdrop-blur-md">
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
+          <div className="w-10 h-10 bg-primary/20 border border-primary/40 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(204,255,0,0.3)]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ccff00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+              <path d="M6.5 6.5h11M6.5 17.5h11M6 12h12M3 9v6M21 9v6"/>
+            </svg>
+          </div>
+          <span className="text-xl font-extrabold tracking-wider text-white">FITVERSE <span className="text-primary">AI</span></span>
+        </div>
+        
+        <div className="hidden md:flex gap-8 text-sm font-medium text-gray-300">
+          <a href="#features" className="hover:text-primary transition-colors">Features</a>
+        </div>
 
-  <div className="hidden md:flex gap-8 text-sm font-medium text-gray-300">
-    <a href="#features" className="hover:text-primary transition-colors">Features</a>
-  </div>
-  <motion.button 
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-    onClick={() => navigate('/auth')} 
-    className="bg-primary text-black px-6 py-2 rounded-full font-semibold transition-colors shadow-[0_0_15px_rgba(204,255,0,0.3)]"
-  >
-    Login / Start
-  </motion.button>
-</nav>
+        <motion.button 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate('/auth')} 
+          className="bg-primary text-black px-6 py-2 rounded-full font-semibold transition-colors shadow-[0_0_15px_rgba(204,255,0,0.3)]"
+        >
+          Login / Start
+        </motion.button>
+      </nav>
 
       <section className="pt-40 pb-20 px-4 max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+          <span className="bg-primary/10 text-primary border border-primary/30 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block mb-6 shadow-[0_0_15px_rgba(204,255,0,0.2)]">
+            ⚡ Smart India Hackathon 2026 Prototype
+          </span>
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight drop-shadow-2xl">
             FITNESS IS NOT A TASK.<br/>
             <span className="text-primary">IT'S YOUR NEXT LEVEL.</span>
