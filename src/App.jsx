@@ -1,37 +1,32 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AppProvider } from './context/AppContext';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
 import Auth from './pages/Auth';
-import Onboarding from './pages/Onboarding';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
-import AICoach from './pages/AICoach';
-import PoseTrainer from './pages/PoseTrainer';
 import Workouts from './pages/Workouts';
+import PoseTrainer from './pages/PoseTrainer';
+import AiCoach from './pages/AiCoach';
 import Challenges from './pages/Challenges';
 
-function App() {
+export default function App() {
   return (
-    <AppProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          
-          <Route path="/app" element={<Layout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="workouts" element={<Workouts />} />
-            <Route path="coach" element={<AICoach />} />
-            <Route path="pose-trainer" element={<PoseTrainer />} />
-            <Route path="challenges" element={<Challenges />} />
-          </Route>
-          
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </Router>
-    </AppProvider>
+    <BrowserRouter>
+      <Routes>
+        {/* Landing Page */}
+        <Route path="/" element={<Landing />} />
+        
+        {/* Auth Page */}
+        <Route path="/auth" element={<Auth />} />
+
+        {/* Dashboard Layout & Nested App Pages */}
+        <Route path="/app" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="workouts" element={<Workouts />} />
+          <Route path="pose-trainer" element={<PoseTrainer />} />
+          <Route path="ai-coach" element={<AiCoach />} />
+          <Route path="challenges" element={<Challenges />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
