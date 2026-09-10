@@ -8,12 +8,12 @@ export default function Layout() {
   const navigate = useNavigate();
 
   const navItems = [
-    { name: 'Dashboard', path: '/app', icon: <Home size={20} />, exact: true },
-    { name: 'Workouts', path: '/app/workouts', icon: <Dumbbell size={20} /> },
-    { name: 'Pose Trainer', path: '/app/pose-trainer', icon: <Camera size={20} /> },
-    { name: 'AI Coach', path: '/app/ai-coach', icon: <Bot size={20} /> },
-    { name: 'Challenges', path: '/app/challenges', icon: <Trophy size={20} /> },
-  ];
+  { name: 'Dashboard', path: '/app', icon: <Home size={20} />, exact: true },
+  { name: 'Workouts', path: '/app/workouts', icon: <Dumbbell size={20} /> },
+  { name: 'Pose Trainer', path: '/app/pose-trainer', icon: <Camera size={20} /> },
+  { name: 'AI Coach', path: '/app/ai-coach', icon: <Bot size={20} /> },
+  { name: 'Challenges', path: '/app/challenges', icon: <Trophy size={20} /> },
+];
 
   return (
     <div className="flex h-screen bg-dark text-white overflow-hidden relative">

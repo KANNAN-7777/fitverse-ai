@@ -20,12 +20,12 @@ export default function App() {
 
         {/* Dashboard and inner app layout */}
         <Route path="/app" element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="workouts" element={<Workouts />} />
-          <Route path="pose-trainer" element={<PoseTrainer />} />
-          <Route path="ai-coach" element={<AiCoach />} />
-          <Route path="challenges" element={<Challenges />} />
-        </Route>
+  <Route index element={<Dashboard />} />
+  <Route path="workouts" element={<Workouts />} />
+  <Route path="pose-trainer" element={<PoseTrainer />} />
+  <Route path="ai-coach" element={<AiCoach />} />
+  <Route path="challenges" element={<Challenges />} />
+</Route>
       </Routes>
     </BrowserRouter>
   );
