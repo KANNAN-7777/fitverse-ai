@@ -7,15 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: '#0a0a0a',
-        darker: '#050505',
-        card: '#111111',
-        primary: '#ccff00',
-        primaryHover: '#b3e600'
+        primary: "#ccff00",
+        dark: "#0b0f17",
+        darker: "#05070a",
+        card: "#121824",
       },
-      fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-      }
     },
   },
   plugins: [],
