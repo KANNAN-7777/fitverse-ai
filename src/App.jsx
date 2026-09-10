@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Landing from './pages/Landing';
 import Auth from './pages/Auth';
 import Layout from './components/Layout';
@@ -12,7 +12,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Landing Page */}
+        {/* Landing Page (Shown when opening the main URL /) */}
         <Route path="/" element={<Landing />} />
         
         {/* Auth Page */}
@@ -26,6 +26,9 @@ export default function App() {
           <Route path="ai-coach" element={<AiCoach />} />
           <Route path="challenges" element={<Challenges />} />
         </Route>
+
+        {/* Catch-all redirect back to Landing */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
