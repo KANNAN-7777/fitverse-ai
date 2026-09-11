@@ -1,24 +1,42 @@
-import React, { createContext, useState, useEffect } from 'react';
+import { createContext, useState } from 'react';
 
 export const AppContext = createContext();
 
-export const AppProvider = ({ children }) => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('fitverse_user')) || null);
-  const [xp, setXp] = useState(parseInt(localStorage.getItem('fitverse_xp')) || 2850);
-  const [streak, setStreak] = useState(12);
-  
-  useEffect(() => {
-    if (user) localStorage.setItem('fitverse_user', JSON.stringify(user));
-    localStorage.setItem('fitverse_xp', xp);
-  }, [user, xp]);
+export function AppProvider({ children }) {
 
-  const login = (userData) => setUser(userData);
-  const logout = () => { setUser(null); localStorage.clear(); };
-  const addXp = (amount) => setXp(prev => prev + amount);
+  const [user, setUser] = useState(null);
+
+  const [xp, setXp] = useState(4850);
+
+  const [streak, setStreak] = useState(7);
+
+  const [level, setLevel] = useState(12);
+
+  const login = (userData) => {
+    setUser(userData);
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
+
+  const addXp = (amount) => {
+    setXp((prevXp) => prevXp + amount);
+  };
 
   return (
-    <AppContext.Provider value={{ user, login, logout, xp, addXp, streak, level: Math.floor(xp / 1000) + 1 }}>
+    <AppContext.Provider
+      value={{
+        user,
+        xp,
+        streak,
+        level,
+        login,
+        logout,
+        addXp
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
-};
+}

@@ -1,24 +1,51 @@
-import React, { createContext, useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-export const AppContext = createContext();
+import Landing from './pages/Landing';
+import Auth from './pages/Auth';
+import Onboarding from './pages/Onboarding';
 
-export const AppProvider = ({ children }) => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('fitverse_user')) || null);
-  const [xp, setXp] = useState(parseInt(localStorage.getItem('fitverse_xp')) || 2850);
-  const [streak, setStreak] = useState(12);
-  
-  useEffect(() => {
-    if (user) localStorage.setItem('fitverse_user', JSON.stringify(user));
-    localStorage.setItem('fitverse_xp', xp);
-  }, [user, xp]);
+import Layout from './components/Layout';
+import Dashboard from './pages/Dashboard';
+import Workouts from './pages/Workouts';
+import PoseTrainer from './pages/PoseTrainer';
+import AiCoach from './pages/AiCoach';
+import Challenges from './pages/Challenges';
 
-  const login = (userData) => setUser(userData);
-  const logout = () => { setUser(null); localStorage.clear(); };
-  const addXp = (amount) => setXp(prev => prev + amount);
-
+export default function App() {
   return (
-    <AppContext.Provider value={{ user, login, logout, xp, addXp, streak, level: Math.floor(xp / 1000) + 1 }}>
-      {children}
-    </AppContext.Provider>
+    <BrowserRouter>
+      <Routes>
+
+        {/* Landing Page */}
+        <Route path="/" element={<Landing />} />
+
+        {/* Authentication */}
+        <Route path="/auth" element={<Auth />} />
+
+        {/* Onboarding */}
+        <Route path="/onboarding" element={<Onboarding />} />
+
+        {/* Main Application */}
+        <Route path="/app" element={<Layout />}>
+
+          {/* Dashboard */}
+          <Route index element={<Dashboard />} />
+
+          {/* Workouts */}
+          <Route path="workouts" element={<Workouts />} />
+
+          {/* Pose Trainer */}
+          <Route path="pose-trainer" element={<PoseTrainer />} />
+
+          {/* AI Coach */}
+          <Route path="ai-coach" element={<AiCoach />} />
+
+          {/* Challenges */}
+          <Route path="challenges" element={<Challenges />} />
+
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
   );
-};
+}

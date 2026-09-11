@@ -1,97 +1,223 @@
-import { useRef, useState, useEffect } from 'react';
-import { Camera, CheckCircle2 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import {
+  useRef,
+  useState,
+  useEffect
+} from 'react';
+
+import {
+  Camera,
+  CheckCircle2
+} from 'lucide-react';
 
 export default function PoseTrainer() {
-  const videoRef = useRef(null);
-  const [isActive, setIsActive] = useState(false);
-  const [reps, setReps] = useState(0);
-  const [feedback, setFeedback] = useState("Position yourself in frame.");
 
-  // Simulate AI Pose Tracking logic for SIH demo
+  const videoRef = useRef(null);
+
+  const [isActive, setIsActive] = useState(false);
+
+  const [reps, setReps] = useState(0);
+
+  const [feedback, setFeedback] = useState(
+    'Position yourself in the frame.'
+  );
+
   useEffect(() => {
+
     let interval;
+
     if (isActive) {
+
       interval = setInterval(() => {
-        setReps(prev => prev + 1);
-        setFeedback("✅ Great posture! Keep your back straight.");
-        setTimeout(() => setFeedback("Going down..."), 2000);
+
+        setReps((prev) => prev + 1);
+
+        setFeedback('✅ Great posture! Keep going.');
+
       }, 4000);
+
     }
+
     return () => clearInterval(interval);
+
   }, [isActive]);
 
   const startCamera = async () => {
+
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+
+      const stream =
+        await navigator.mediaDevices.getUserMedia({
+          video: true
+        });
+
       if (videoRef.current) {
+
         videoRef.current.srcObject = stream;
+
         setIsActive(true);
-        setFeedback("Tracking Started. Ready for Squats.");
+
+        setFeedback(
+          'AI Tracking Started. Ready for Squats!'
+        );
+
       }
-    } catch (err) {
-      console.error("Camera access denied", err);
-      setFeedback("Camera access denied. Please allow camera permissions.");
+
+    } catch (error) {
+
+      setFeedback(
+        'Camera permission denied.'
+      );
+
     }
+
   };
 
   const stopCamera = () => {
+
     const stream = videoRef.current?.srcObject;
-    const tracks = stream?.getTracks();
-    tracks?.forEach(track => track.stop());
+
+    if (stream) {
+
+      stream.getTracks().forEach((track) => {
+        track.stop();
+      });
+
+    }
+
     setIsActive(false);
-    setReps(0);
+
+    setFeedback(
+      'Workout stopped.'
+    );
+
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="h-full">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold flex items-center gap-2"><Camera className="text-primary"/> AI Smart Form Trainer</h1>
-        <p className="text-gray-400">Use your webcam to analyze exercise posture and count repetitions automatically.</p>
-      </div>
+
+    <div>
+
+      <h1 className="text-3xl font-black flex gap-3 items-center">
+
+        <Camera className="text-[#ccff00]" />
+
+        AI Smart Form Trainer
+
+      </h1>
+
+      <p className="text-gray-400 mt-2 mb-7">
+
+        Webcam-based exercise posture monitoring and repetition tracking.
+
+      </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 glass rounded-2xl overflow-hidden relative aspect-video bg-black flex items-center justify-center border border-white/10">
+
+        <div className="lg:col-span-2 relative aspect-video bg-black rounded-2xl overflow-hidden border border-white/10">
+
           {!isActive && (
-            <div className="absolute text-center z-10 flex flex-col items-center">
-              <Camera size={48} className="text-gray-600 mb-4" />
-              <button onClick={startCamera} className="bg-primary text-black px-6 py-3 rounded-full font-bold hover:bg-primaryHover transition-colors shadow-lg">
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+
+              <Camera
+                size={55}
+                className="text-gray-500 mb-5"
+              />
+
+              <button
+                onClick={startCamera}
+                className="bg-[#ccff00] text-black px-6 py-3 rounded-xl font-bold"
+              >
+
                 Enable Camera & Start
+
               </button>
+
             </div>
+
           )}
-          <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover opacity-80 scale-x-[-1]" />
-          
-          {/* AI Overlay Mockup */}
+
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            className="w-full h-full object-cover scale-x-[-1]"
+          />
+
           {isActive && (
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-4 left-4 bg-black/60 backdrop-blur px-4 py-2 rounded-lg border border-white/10 text-xl font-mono text-white">
-                Squats: <span className="text-primary font-bold">{reps} / 15</span>
+
+            <>
+
+              <div className="absolute top-5 left-5 bg-black/80 px-4 py-3 rounded-xl">
+
+                Squats:
+
+                <span className="text-[#ccff00] font-bold">
+
+                  {' '}{reps} / 15
+
+                </span>
+
               </div>
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur px-6 py-3 rounded-full border border-primary text-primary font-medium flex items-center gap-2 shadow-[0_0_15px_rgba(204,255,0,0.2)] whitespace-nowrap">
-                <CheckCircle2 size={18} /> {feedback}
+
+              <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black/90 border border-[#ccff00]/30 px-6 py-3 rounded-full flex gap-2 whitespace-nowrap">
+
+                <CheckCircle2 className="text-[#ccff00]" />
+
+                {feedback}
+
               </div>
-            </div>
+
+            </>
+
           )}
+
         </div>
 
-        <div className="glass p-6 rounded-2xl flex flex-col gap-4 border border-white/5">
-          <h3 className="font-bold text-xl mb-2">Instructions</h3>
-          <ul className="text-gray-400 space-y-4 text-sm">
-            <li className="flex gap-3"><span className="text-primary font-bold">1.</span> Ensure your full body is visible in the camera.</li>
-            <li className="flex gap-3"><span className="text-primary font-bold">2.</span> Stand 2 meters away from the screen.</li>
-            <li className="flex gap-3"><span className="text-primary font-bold">3.</span> The AI will automatically count reps when proper form is detected.</li>
+        <div className="bg-[#121824] border border-white/10 rounded-2xl p-6">
+
+          <h2 className="font-bold text-xl">
+
+            Instructions
+
+          </h2>
+
+          <ul className="space-y-5 text-gray-400 mt-6 text-sm">
+
+            <li>
+              <span className="text-[#ccff00]">1.</span>
+              {' '}Ensure your full body is visible.
+            </li>
+
+            <li>
+              <span className="text-[#ccff00]">2.</span>
+              {' '}Stand approximately 2 meters away.
+            </li>
+
+            <li>
+              <span className="text-[#ccff00]">3.</span>
+              {' '}AI analyzes posture and counts repetitions.
+            </li>
+
           </ul>
 
-          <div className="mt-auto pt-6">
-            {isActive && (
-              <button onClick={stopCamera} className="w-full bg-red-500/10 text-red-500 border border-red-500/50 py-3 rounded-xl font-bold hover:bg-red-500 hover:text-white transition-colors">
-                Stop Workout
-              </button>
-            )}
-          </div>
+          {isActive && (
+
+            <button
+              onClick={stopCamera}
+              className="mt-10 w-full py-3 rounded-xl bg-red-500/10 text-red-400 border border-red-500/30"
+            >
+
+              Stop Workout
+
+            </button>
+
+          )}
+
         </div>
+
       </div>
-    </motion.div>
+
+    </div>
   );
 }
