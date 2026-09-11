@@ -9,7 +9,7 @@ export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
 
   const handleDemoLogin = () => {
-    login({ name: 'Thamarai', email: 'demo@sih2026.com', level: 'Intermediate' });
+    login({ name: 'Thamarai', email: 'demo@sih2026.com', role: 'student' });
     navigate('/onboarding');
   };
 
@@ -32,9 +32,9 @@ export default function Auth() {
         </button>
 
         <div className="relative flex py-2 items-center mb-4">
-          <div className="flex-grow border-t border-gray-800"></div>
-          <span className="flex-shrink-0 mx-4 text-gray-500 text-sm">For  Demo</span>
-          <div className="flex-grow border-t border-gray-800"></div>
+          <div className="flex-grow border-t border-gray-700"></div>
+          <span className="flex-shrink-0 mx-4 text-gray-500 text-sm">For SIH Demo</span>
+          <div className="flex-grow border-t border-gray-700"></div>
         </div>
 
         <button onClick={handleDemoLogin} className="w-full bg-primary text-black font-bold py-3 rounded-xl hover:shadow-[0_0_15px_rgba(204,255,0,0.4)] transition-all">

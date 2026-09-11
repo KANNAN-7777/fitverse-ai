@@ -1,47 +1,39 @@
 import { motion } from 'framer-motion';
-import { Trophy, Users } from 'lucide-react';
+import { Trophy, Users, ShieldAlert } from 'lucide-react';
 
 export default function Challenges() {
-  const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } };
-  const item = { hidden: { opacity: 0, x: -20 }, show: { opacity: 1, x: 0 } };
-
-  const challenges = [
-    { name: "🔥 30-Day Fitness Challenge", progress: 40, participants: "2,456", reward: "Champion Badge", img: "https://images.unsplash.com/photo-1554244933-d876deb6b2ff?q=80&w=800&auto=format&fit=crop" },
-    { name: "🚶 10,000 Steps Daily", progress: 75, participants: "5,120", reward: "Walker Badge", img: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=800&auto=format&fit=crop" },
-    { name: "💪 100 Push-ups Weekly", progress: 10, participants: "1,200", reward: "Strength Badge", img: "https://images.unsplash.com/photo-1598971639058-fab3c3109a00?q=80&w=800&auto=format&fit=crop" }
-  ];
-
   return (
-    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <h1 className="text-3xl font-bold mb-2">Community Challenges</h1>
       <p className="text-gray-400 mb-8">Compete with friends and earn exclusive badges.</p>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
-          {challenges.map((c, i) => (
-            <motion.div key={i} variants={item} whileHover={{ scale: 1.02 }} className="rounded-2xl relative overflow-hidden group border border-white/10 shadow-xl h-48 flex flex-col justify-end p-5">
-              <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url(${c.img})` }} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/30" />
-              
-              <div className="relative z-10">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="font-bold text-lg text-white">{c.name}</h3>
-                  <span className="flex items-center gap-1 text-xs text-white font-medium bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-sm"><Users size={12}/> {c.participants}</span>
-                </div>
-                <div className="w-full bg-white/20 rounded-full h-2.5 mb-3 overflow-hidden backdrop-blur-sm">
-                  <div className="bg-primary h-2.5 rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(204,255,0,0.8)]" style={{ width: `${c.progress}%` }}></div>
-                </div>
-                <div className="flex justify-between text-sm text-gray-300 font-medium">
-                  <span>Progress: <span className="text-white">{c.progress}%</span></span>
-                  <span className="flex items-center gap-1 text-primary drop-shadow-md"><Trophy size={14}/> {c.reward}</span>
-                </div>
+        <div className="space-y-4">
+          {[
+            { name: "🔥 30-Day Fitness Challenge", progress: 40, participants: "2,456", reward: "Champion Badge" },
+            { name: "🚶 10,000 Steps Daily", progress: 75, participants: "5,120", reward: "Walker Badge" },
+            { name: "💪 100 Push-ups Weekly", progress: 10, participants: "1,200", reward: "Strength Badge" }
+          ].map((c, i) => (
+            <div key={i} className="glass p-5 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="font-bold text-lg">{c.name}</h3>
+                <span className="flex items-center gap-1 text-xs text-gray-400 bg-gray-800 px-2 py-1 rounded border border-gray-700"><Users size={12}/> {c.participants}</span>
               </div>
-            </motion.div>
+              <div className="w-full bg-gray-800 rounded-full h-2 mb-2 overflow-hidden">
+                <div className="bg-primary h-2 rounded-full transition-all duration-1000" style={{ width: `${c.progress}%` }}></div>
+              </div>
+              <div className="flex justify-between text-sm text-gray-400 mb-4">
+                <span>Progress: <span className="text-white font-medium">{c.progress}%</span></span>
+                <span className="flex items-center gap-1 text-primary"><Trophy size={14}/> {c.reward}</span>
+              </div>
+              <button className="w-full bg-white/5 hover:bg-white hover:text-black py-2.5 rounded-xl font-medium transition-colors border border-white/10">Join Challenge</button>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
-        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="glass p-6 rounded-2xl border border-white/5 h-fit relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] pointer-events-none" />
+        {/* Leaderboard */}
+        <div className="glass p-6 rounded-2xl border border-white/5 h-fit relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
           
           <h3 className="font-bold text-xl mb-6 flex items-center gap-2"><Trophy className="text-yellow-500"/> Global Leaderboard</h3>
           <div className="space-y-3 relative z-10">
@@ -52,16 +44,16 @@ export default function Challenges() {
               { rank: 4, name: "Rahul Singh", xp: "3,950 XP", color: "text-gray-500", badge: "4" },
               { rank: 5, name: "Ananya", xp: "3,100 XP", color: "text-gray-500", badge: "5" },
             ].map((user, i) => (
-              <motion.div key={i} whileHover={{ x: 5 }} className={`flex items-center justify-between p-4 rounded-xl transition-all cursor-default ${user.highlight ? 'bg-primary/15 border border-primary/40 shadow-[0_0_20px_rgba(204,255,0,0.15)] scale-[1.02]' : 'bg-gray-800/40 border border-transparent hover:bg-gray-800/60'}`}>
+              <div key={i} className={`flex items-center justify-between p-4 rounded-xl transition-all ${user.highlight ? 'bg-primary/10 border border-primary/30 shadow-[0_0_15px_rgba(204,255,0,0.1)] scale-[1.02]' : 'bg-gray-800/40 border border-transparent'}`}>
                 <div className="flex items-center gap-4">
-                  <span className={`font-bold text-lg w-6 text-center ${user.color} drop-shadow-md`}>{user.badge}</span>
-                  <span className={user.highlight ? 'text-primary font-bold tracking-wide' : 'text-gray-200 font-medium'}>{user.name}</span>
+                  <span className={`font-bold text-lg w-6 text-center ${user.color}`}>{user.badge}</span>
+                  <span className={user.highlight ? 'text-primary font-bold' : 'text-gray-200'}>{user.name}</span>
                 </div>
                 <span className="text-sm font-mono font-bold text-gray-300">{user.xp}</span>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </motion.div>
   );
